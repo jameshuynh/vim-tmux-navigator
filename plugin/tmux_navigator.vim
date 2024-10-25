@@ -8,8 +8,23 @@ endif
 let g:loaded_tmux_navigator = 1
 
 function! s:VimNavigate(direction)
-  try
-    execute 'wincmd ' . a:direction
+  try    
+    let l:prevWinNr = winnr()
+    execute a:1 . 'wincmd' a:direction
+    if winnr() == l:prevWinNr
+      let opposite = direction
+      switch direction
+          case 'h'
+              opposite = 'l'
+          case 'j'
+              opposite = 'k'
+          case 'k'
+              opposite = 'j'
+          case 'l'
+              opposite = 'h'
+      endswitch
+      execute a:999 . 'wincmd' a:opposite
+    endif
   catch
     echohl ErrorMsg | echo 'E11: Invalid in command-line window; <CR> executes, CTRL-C quits: wincmd k' | echohl None
   endtry
