@@ -13,13 +13,13 @@ function! s:VimNavigate(direction)
     execute 1 . 'wincmd' a:direction
     if winnr() == l:prevWinNr
       let opposite = a:direction
-      if direction == 'h'
+      if a:direction == 'h'
         opposite = 'l'
-      elseif direction == 'j'
+      elseif a:direction == 'j'
         opposite = 'k'
-      elseif direction == 'k'
+      elseif a:direction == 'k'
         opposite = 'j'
-      elseif direction == 'l'
+      elseif a:direction == 'l'
         opposite = 'h'
       endif
       execute 999 . 'wincmd' opposite
